@@ -1,18 +1,28 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+  StyleSheet,
+} from 'react-native';
 import {vh, vw} from '../mixin';
 
-const Task = ({task, index, doneTask}) => {
+const Task = ({task, index, drag, isActive, deleteTask}) => {
   return (
-    <View style={taskBlock(index).taskBlock}>
-      <View style={styles.textBlock}>
-        <Text style={[styles.title, styles.text]}>{task.title}</Text>
-        <Text style={[styles.date, styles.text]}>{task.date}</Text>
+    <TouchableWithoutFeedback onLongPress={drag}>
+      <View style={taskBlock(index).taskBlock}>
+        <View style={styles.textBlock}>
+          <Text style={[styles.title, styles.text]}>{task.title}</Text>
+          <Text style={[styles.date, styles.text]}>{task.date}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => deleteTask(index)}>
+          <Text style={[styles.textButton, styles.text]}>Done</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => doneTask(index)}>
-        <Text style={[styles.textButton, styles.text]}>Done</Text>
-      </TouchableOpacity>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -21,11 +31,13 @@ const taskBlock = (index) => {
     taskBlock: {
       flexDirection: 'column',
       justifyContent: 'space-between',
-      width: vw(48),
+      width: vw(180),
       backgroundColor: '#FFFFFF',
       borderRadius: 9,
       elevation: 8,
-      marginBottom: vh(2.8),
+      marginBottom: vh(23),
+      marginLeft: 10,
+      marginRight: 10,
       minHeight: 120,
     },
   };
@@ -62,7 +74,7 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: '#FFFFFF',
     borderRadius: 3,
-    elevation: 8,
+    elevation: 5,
   },
   textButton: {
     fontSize: 12,

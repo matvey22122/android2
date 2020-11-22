@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoBold',
     fontStyle: 'normal',
     fontWeight: 'bold',
-    fontSize: vw(12.8),
-    lineHeight: vh(6.9),
+    fontSize: vw(48),
+    lineHeight: vh(56),
   },
 });

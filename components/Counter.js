@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 48,
     right: 0,
-    top: vh(13.1),
+    top: vh(107),
     paddingLeft: 25,
     paddingRight: 25,
     display: 'flex',

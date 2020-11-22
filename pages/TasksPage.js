@@ -1,27 +1,47 @@
 import React, {useContext} from 'react';
-import {ScrollView, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {ApiContext} from '../context/ApiContext';
 import {Title} from '../components/Title';
 import Task from '../components/Task';
 import {vh, vw} from '../mixin';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 import Counter from '../components/Counter';
 import AddTaskButton from '../components/AddTaskButton';
 
 const TasksPage = ({navigation}) => {
-  const {tasks, deleteTask} = useContext(ApiContext);
+  const {tasks, deleteTask, setTasks} = useContext(ApiContext);
+
+  const renderItem = ({item, index, drag, isActive}) => {
+    return (
+      <Task
+        task={item}
+        index={index}
+        drag={drag}
+        isActive={isActive}
+        deleteTask={deleteTask}
+      />
+    );
+  };
+
   return (
-    <View>
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.block}>
-          <Title title={'Tasks'} />
-          <View style={styles.tasks}>
-            {tasks.map((task, i) => (
-              <Task key={i} task={task} doneTask={deleteTask} index={i} />
-            ))}
-          </View>
-        </View>
-        <Counter />
-      </ScrollView>
+    <View style={{flex: 1}}>
+      <View style={styles.block}>
+        <DraggableFlatList
+          ListHeaderComponent={
+            <>
+              <Title title={'Tasks'} />
+            </>
+          }
+          ListHeaderComponentStyle={{marginTop: vh(63), marginBottom: vh(48)}}
+          showsVerticalScrollIndicator={false}
+          data={tasks}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.title}
+          scrollPercent={5}
+          onDragEnd={({data}) => setTasks(data)}
+        />
+      </View>
+      <Counter />
       <AddTaskButton navigation={navigation} />
     </View>
   );
@@ -29,15 +49,10 @@ const TasksPage = ({navigation}) => {
 
 const styles = StyleSheet.create({
   block: {
-    justifyContent: 'flex-start',
+    flex: 1,
     flexDirection: 'column',
-    marginTop: vh(7.5),
-    marginLeft: vw(9),
-    marginRight: vw(9),
-  },
-  tasks: {
-    flexDirection: 'column',
-    marginTop: vh(6),
+    marginLeft: vw(34),
+    marginRight: vw(34),
   },
 });
 

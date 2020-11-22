@@ -78,7 +78,8 @@ export const ApiState = ({children}) => {
   };
 
   return (
-    <ApiContext.Provider value={{deleteTask, addTask, getTasks, tasks: state}}>
+    <ApiContext.Provider
+      value={{deleteTask, addTask, getTasks, tasks: state, setTasks: setState}}>
       {children}
     </ApiContext.Provider>
   );
