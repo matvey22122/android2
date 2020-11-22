@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {ApiContext} from '../context/ApiContext';
 import {Title} from '../components/Title';
@@ -10,8 +10,15 @@ import AddTaskButton from '../components/AddTaskButton';
 
 const TasksPage = ({navigation}) => {
   const {tasks, deleteTask, setTasks} = useContext(ApiContext);
+  const [oldTasks, setOldTasks] = useState(tasks);
 
   const renderItem = ({item, index, drag, isActive}) => {
+    let ind = -1;
+    oldTasks.forEach((it, i) => {
+      if (it.title === item.title) {
+        ind = i;
+      }
+    });
     return (
       <Task
         task={item}
@@ -19,6 +26,7 @@ const TasksPage = ({navigation}) => {
         drag={drag}
         isActive={isActive}
         deleteTask={deleteTask}
+        pastIndex={ind}
       />
     );
   };
@@ -32,13 +40,20 @@ const TasksPage = ({navigation}) => {
               <Title title={'Tasks'} />
             </>
           }
-          ListHeaderComponentStyle={{marginTop: vh(63), marginBottom: vh(48)}}
+          ListHeaderComponentStyle={{
+            marginTop: vh(63),
+            marginBottom: vh(48),
+            marginLeft: 10,
+          }}
           showsVerticalScrollIndicator={false}
           data={tasks}
           renderItem={renderItem}
           keyExtractor={(item) => item.title}
-          scrollPercent={5}
-          onDragEnd={({data}) => setTasks(data)}
+          activationDistance={20}
+          onDragEnd={({data}) => {
+            setOldTasks(tasks);
+            setTasks(data);
+          }}
         />
       </View>
       <Counter />
@@ -51,8 +66,8 @@ const styles = StyleSheet.create({
   block: {
     flex: 1,
     flexDirection: 'column',
-    marginLeft: vw(34),
-    marginRight: vw(34),
+    marginLeft: vw(34) - 10,
+    marginRight: vw(34) - 10,
   },
 });
 

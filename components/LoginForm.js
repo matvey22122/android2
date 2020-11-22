@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: vh(4.1),
     marginTop: vh(4.1),
-    height: vh(6.6),
+    height: 300,
     backgroundColor: '#FFE3D3',
     borderRadius: 10,
     shadowColor: '#000',
