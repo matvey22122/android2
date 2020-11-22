@@ -13,41 +13,43 @@ const Task = ({task, index, drag, isActive, deleteTask, pastIndex}) => {
   const animatedValue = new Animated.Value(0);
 
   const side = useRef('left');
-  let _move = () => {
-    Animated.timing(animatedValue, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  };
 
-  if (pastIndex === -1) {
-    side.current = index % 2 === 0 ? 'left' : 'right';
-    _move();
-  } else if (pastIndex % 2 === index % 2) {
-    _move = () => {
+  if (!isActive) {
+    let _move = () => {
       Animated.timing(animatedValue, {
         toValue: 1,
-        duration: 1,
+        duration: 1000,
         useNativeDriver: true,
       }).start();
     };
-    side.current = index % 2 === 0 ? 'left' : 'right';
-    _move();
-  } else {
-    if (pastIndex % 2 === 0) {
-      side.current = 'right';
+    if (pastIndex === -1) {
+      side.current = index % 2 === 0 ? 'left' : 'right';
       _move();
-    } else {
-      side.current = 'left';
+    } else if (pastIndex % 2 === index % 2) {
       _move = () => {
         Animated.timing(animatedValue, {
           toValue: 1,
-          duration: 1000,
+          duration: 1,
           useNativeDriver: true,
         }).start();
       };
+      side.current = index % 2 === 0 ? 'left' : 'right';
       _move();
+    } else {
+      if (pastIndex % 2 === 0) {
+        side.current = 'right';
+        _move();
+      } else {
+        side.current = 'left';
+        _move = () => {
+          Animated.timing(animatedValue, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+          }).start();
+        };
+        _move();
+      }
     }
   }
 
@@ -61,27 +63,30 @@ const Task = ({task, index, drag, isActive, deleteTask, pastIndex}) => {
     outputRange: [vw(125), 0],
   });
 
-  let animStyleRight = {
-    transform: [
-      {
-        translateX: xValRight,
-      },
-    ],
-  };
+  let animStyle = {};
 
-  let animStyleLeft = {
-    transform: [
-      {
-        translateX: xValLeft,
-      },
-    ],
-  };
+  if (isActive && index % 2 === 0) {
+    animStyle = {};
+  } else {
+    if (side.current === 'right') {
+      animStyle = {
+        transform: [{translateX: xValRight}],
+      };
+    } else {
+      animStyle = {
+        transform: [{translateX: xValLeft}],
+      };
+    }
+  }
 
   return (
-    <Animated.View
-      style={side.current === 'right' ? animStyleRight : animStyleLeft}>
+    <Animated.View style={animStyle}>
       <TouchableWithoutFeedback onLongPress={drag}>
-        <View style={[styles.taskBlock, {backgroundColor: isActive ? '#f6f6f6' : '#FFFFFF'}]}>
+        <View
+          style={[
+            styles.taskBlock,
+            {backgroundColor: isActive ? '#f6f6f6' : '#FFFFFF'},
+          ]}>
           <View style={styles.textBlock}>
             <Text style={[styles.title, styles.text]}>{task.title}</Text>
             <Text style={[styles.date, styles.text]}>{task.date}</Text>
