@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {ApiContext} from '../context/ApiContext';
-import {vh} from '../mixin';
+import {vh, vw} from '../mixin';
 
 const Counter = () => {
   const {tasks} = useContext(ApiContext);
@@ -16,7 +16,7 @@ const Counter = () => {
 const styles = StyleSheet.create({
   block: {
     position: 'absolute',
-    height: 48,
+    height: vh(48),
     right: 0,
     top: vh(107),
     paddingLeft: 25,
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoBold',
     fontStyle: 'normal',
     fontWeight: 'bold',
-    fontSize: 18,
-    lineHeight: 21,
+    fontSize: vw(18),
+    lineHeight: vw(21),
   },
 });
 

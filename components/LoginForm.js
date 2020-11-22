@@ -32,7 +32,7 @@ const LoginForm = ({navigation}) => {
           placeholder={'Enter email...'}
           style={[styles.input, styles.text]}
         />
-        <Text style={[styles.label, styles.text, {marginTop: vh(4.1)}]}>
+        <Text style={[styles.label, styles.text, {marginTop: vh(34)}]}>
           Password
         </Text>
         <TextInput
@@ -53,56 +53,58 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    width: vw(81.8),
-    marginTop: vh(13),
+    width: vw(307),
+    marginTop: vh(106),
   },
   label: {
-    fontSize: 21,
-    lineHeight: 25,
+    fontSize: vw(21),
+    lineHeight: vw(25),
   },
   input: {
-    height: vh(7.5),
-    marginTop: vh(3.6),
-    paddingLeft: 15,
-    paddingRight: 15,
-    fontSize: 12.5379,
-    lineHeight: 15,
+    height: vh(61),
+    marginTop: vh(29),
+    paddingLeft: vw(15),
+    paddingRight: vw(15),
+    fontSize: vw(12.5379),
+    lineHeight: vw(15),
     color: '#999999',
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
+
     shadowColor: '#000',
-    shadowOpacity: 0.08,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 5,
     },
-    shadowRadius: 10,
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
     elevation: 10,
   },
   button: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: vh(4.1),
-    marginTop: vh(4.1),
-    height: 300,
+    marginBottom: vh(34),
+    marginTop: vh(34),
+    height: vh(54),
     backgroundColor: '#FFE3D3',
     borderRadius: 10,
+
     shadowColor: '#000',
-    shadowOpacity: 0.08,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowRadius: 10,
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
     elevation: 2,
   },
   buttonText: {
     fontFamily: 'RobotoBlack',
     fontStyle: 'normal',
     fontWeight: 'bold',
-    fontSize: 18,
-    lineHeight: 21,
+    fontSize: vw(18),
+    lineHeight: vw(21),
   },
   text: {
     fontFamily: 'RobotoBold',

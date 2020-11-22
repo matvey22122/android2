@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
 
-    marginTop: vh(8),
-    marginLeft: vw(9),
-    marginRight: vw(9),
+    marginTop: vh(63),
+    marginLeft: vw(34),
+    marginRight: vw(34),
   },
 });
 

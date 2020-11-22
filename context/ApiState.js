@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {ApiContext} from './ApiContext';
+import {getToday} from '../mixin';
 
 export const ApiState = ({children}) => {
   const [state, setState] = useState([]);
@@ -15,29 +16,9 @@ export const ApiState = ({children}) => {
   };
 
   const addTask = async (title) => {
-    const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-
-    const date = new Date();
-    const d = date.getDate();
-    const m = monthNames[date.getMonth()].toLowerCase();
-    const ye = date.getFullYear();
-
     const task = {
       title,
-      date: `${d} ${m} ${ye}`,
+      date: getToday(),
     };
 
     try {

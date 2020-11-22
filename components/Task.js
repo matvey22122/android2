@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Animated,
 } from 'react-native';
-import {vh, vw} from '../mixin';
+import {getToday, vh, vw} from '../mixin';
 
 const Task = ({task, index, drag, isActive, deleteTask, pastIndex}) => {
   const animatedValue = new Animated.Value(0);
@@ -89,7 +89,9 @@ const Task = ({task, index, drag, isActive, deleteTask, pastIndex}) => {
           ]}>
           <View style={styles.textBlock}>
             <Text style={[styles.title, styles.text]}>{task.title}</Text>
-            <Text style={[styles.date, styles.text]}>{task.date}</Text>
+            <Text style={[styles.date, styles.text]}>
+              {task.date || getToday()}
+            </Text>
           </View>
           <TouchableOpacity
             style={styles.button}
@@ -101,7 +103,6 @@ const Task = ({task, index, drag, isActive, deleteTask, pastIndex}) => {
     </Animated.View>
   );
 };
-//TODO: загрузку
 
 const styles = StyleSheet.create({
   taskBlock: {
@@ -109,42 +110,60 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: vw(180),
     backgroundColor: '#FFFFFF',
-    borderRadius: 9,
-    elevation: 8,
+    borderRadius: vw(9),
     marginBottom: vh(23),
     marginLeft: 10,
     marginRight: 10,
-    minHeight: 120,
+    minHeight: vh(130),
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
   textBlock: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 16,
+    marginLeft: vw(10),
+    marginRight: vw(10),
+    marginTop: vh(16),
   },
   title: {
-    fontSize: 21,
-    lineHeight: 25,
+    fontSize: vw(21),
+    lineHeight: vw(25),
     color: '#323232',
   },
   date: {
-    marginTop: 6,
-    fontSize: 10,
-    lineHeight: 12,
+    marginTop: vh(6),
     color: '#C4C4C4',
+    fontSize: vw(10),
+    lineHeight: vw(12),
   },
   button: {
     display: 'flex',
-    height: 32,
+    height: vh(32),
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
+    margin: vh(10),
     backgroundColor: '#FFFFFF',
-    borderRadius: 3,
+    borderRadius: vw(3),
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
     elevation: 5,
   },
   textButton: {
-    fontSize: 12,
-    lineHeight: 14,
+    fontSize: vw(12),
+    lineHeight: vw(14),
     color: '#C3FEDA',
   },
   text: {
