@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
   date: {
     marginTop: vh(6),
     color: '#C4C4C4',
-    fontSize: vw(10),
-    lineHeight: vw(12),
+    fontSize: vw(11),
+    lineHeight: vw(13),
   },
   button: {
     display: 'flex',
